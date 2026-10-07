@@ -1,13 +1,13 @@
-// Puxamos o Express para dentro do nosso arquivo
+// Puxa o Express para dentro do arquivo
 const express = require('express');
 
-// Inicializamos o aplicativo do servidor
+// Inicializa o aplicativo do servidor
 const app = express();
 
-// Definimos em qual porta do nosso computador o servidor vai rodar
+// Defini em qual porta do computador o servidor vai rodar
 const porta = 3000;
 
-// Criamos nossa primeira rota (o caminho principal "/")
+// Cria a primeira rota (o caminho principal "/")
 app.get('/', (req, res) => {
   res.send('Servidor da Maratona de Filmes rodando perfeitamente! 🍿');
 });
@@ -38,7 +38,12 @@ app.get('/filmes', (req, res) => {
   res.json(filmes);
 });
 
-// Mandamos o servidor ligar e ficar "ouvindo" a porta 3000
+// Manda o servidor ligar e ficar "ouvindo" a porta 3000
 app.listen(porta, () => {
   console.log(`Servidor rodando em http://localhost:${porta}`);
 });
+
+app.get('/filmes/fantasia', (req, res) => {
+  const filmesDeFantasia = filmes.filter(filme => filme.genero === 'Fantasia');
+  res.json(filmesDeFantasia)
+})
