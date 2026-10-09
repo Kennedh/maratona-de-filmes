@@ -45,5 +45,8 @@ app.listen(porta, () => {
 
 app.get('/filmes/fantasia', (req, res) => {
   const filmesDeFantasia = filmes.filter(filme => filme.genero === 'Fantasia');
+  if (filmesDeFantasia.length === 0) {
+    console.log('Nenhum filme de fantasia encontrado');
+  }
   res.json(filmesDeFantasia)
 })
