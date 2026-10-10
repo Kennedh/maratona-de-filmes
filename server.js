@@ -33,6 +33,11 @@ filmes.push({
     genero: 'Fantasia',
     duracaoEmMinutos: 178
   });
+filmes.push({
+    titulo: 'Sexta-Feira 13 (1980)',
+    genero: 'Terror',
+    duracaoEmMinutos: 95
+  });
 
 app.get('/filmes', (req, res) => {
   res.json(filmes);
@@ -43,11 +48,12 @@ app.listen(porta, () => {
   console.log(`Servidor rodando em http://localhost:${porta}`);
 });
 
-app.get('/filmes/fantasia', (req, res) => {
-  const filmesDeFantasia = filmes.filter(filme => filme.genero === 'Fantasia');
-  if (filmesDeFantasia.length === 0) {
-    console.log('Nenhum filme de fantasia encontrado');
+app.get('/filmes/genero/:genero', (req, res) => {
+  const generoBuscado = req.params.genero;
+  const filmesFiltrados = filmes.filter(filme => filme.genero === generoBuscado);
+  if (filmesFiltrados.length === 0) {
+    console.log(`Nenhum filme encontrado para o gênero ${generoBuscado}`);
   }
-  res.json(filmesDeFantasia)
+  res.json(filmesFiltrados)
 })
 
