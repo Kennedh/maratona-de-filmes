@@ -50,3 +50,4 @@ app.get('/filmes/fantasia', (req, res) => {
   }
   res.json(filmesDeFantasia)
 })
+
