@@ -50,7 +50,7 @@ app.listen(porta, () => {
 
 app.get('/filmes/genero/:genero', (req, res) => {
   const generoBuscado = req.params.genero;
-  const filmesFiltrados = filmes.filter(filme => filme.genero === generoBuscado);
+  const filmesFiltrados = filmes.filter(filme => filme.genero.toLowerCase() === generoBuscado.toLowerCase());
   if (filmesFiltrados.length === 0) {
     console.log(`Nenhum filme encontrado para o gênero ${generoBuscado}`);
   }
