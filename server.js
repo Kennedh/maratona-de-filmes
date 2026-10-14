@@ -49,11 +49,21 @@ app.listen(porta, () => {
 });
 
 app.get('/filmes/genero/:genero', (req, res) => {
-  const generoBuscado = req.params.genero;
-  const filmesFiltrados = filmes.filter(filme => filme.genero.toLowerCase() === generoBuscado.toLowerCase());
+  const generoBuscado = req.params.genero.toLowerCase();
+  const filmesFiltrados = filmes.filter(filme => filme.genero.toLowerCase() === generoBuscado);
   if (filmesFiltrados.length === 0) {
     console.log(`Nenhum filme encontrado para o gênero ${generoBuscado}`);
   }
   res.json(filmesFiltrados)
 })
+
+app.get('/filmes/titulo/:titulo', (req, res) => {
+  const tituloBuscado = req.params.titulo.toLowerCase();
+  const filmesFiltrados = filmes.filter(filme => filme.titulo.toLowerCase().includes(tituloBuscado));
+  if (filmesFiltrados.length === 0) {
+    console.log(`Nenhum filme encontrado para o titulo ${tituloBuscado}`);
+  }
+  res.json(filmesFiltrados)
+})
+
 
