@@ -7,13 +7,6 @@ const app = express();
 // Defini em qual porta do computador o servidor vai rodar
 const porta = 3000;
 
-// Cria a primeira rota (o caminho principal "/")
-app.get('/', (req, res) => {
-  res.send('Servidor da Maratona de Filmes rodando perfeitamente! 🍿');
-});
-
-// Segunda rota
-
 const filmes = [
   {
     id: 1,
@@ -41,20 +34,27 @@ const filmes = [
   }
 ];
 
-filmes[1].duracaoEmMinutos = 169;
-filmes.push({
-    titulo: 'Senhor dos aneis A sociedade do anel',
-    genero: 'Fantasia',
-    duracaoEmMinutos: 178
-  });
-filmes.push({
-    titulo: 'Sexta-Feira 13 (1980)',
-    genero: 'Terror',
-    duracaoEmMinutos: 95
-  });
+
+app.get('/', (req, res) => {
+  let html = `<h1> Meus Filmes </h1>`;
+
+  for (const filme of filmes) {
+    html += `
+      <h2>${filme.titulo}</h2>
+      <p>ID: ${filme.id}</p>
+      <p>Gênero: ${filme.genero}</p>
+      <p>Duração: ${filme.duracaoEmMinutos} minutos</p>
+    `;
+  }
+
+  html += `<p>Total de filmes: ${filmes.length}</p>`;
+
+  res.send(html);
+});
 
 app.get('/filmes', (req, res) => {
-  res.json(filmes);
+  const filmesTotais = filmes.length;
+  res.json(filmesTotais);
 });
 
 app.get('/filmes/id/:id', (req, res) => {
@@ -77,11 +77,6 @@ app.get('/filmes/id/:id', (req, res) => {
   res.json(filmeEncontrado);
 });
 
-// Manda o servidor ligar e ficar "ouvindo" a porta 3000
-app.listen(porta, () => {
-  console.log(`Servidor rodando em http://localhost:${porta}`);
-});
-
 app.get('/filmes/genero/:genero', (req, res) => {
   const generoBuscado = req.params.genero.toLowerCase();
   const filmesFiltrados = filmes.filter(filme => filme.genero.toLowerCase() === generoBuscado);
@@ -99,5 +94,10 @@ app.get('/filmes/titulo/:titulo', (req, res) => {
   }
   res.json(filmesFiltrados)
 })
+
+// Manda o servidor ligar e ficar "ouvindo" a porta 3000
+app.listen(porta, () => {
+  console.log(`Servidor rodando em http://localhost:${porta}`);
+});
 
 
