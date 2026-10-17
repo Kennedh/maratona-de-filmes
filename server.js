@@ -16,14 +16,28 @@ app.get('/', (req, res) => {
 
 const filmes = [
   {
+    id: 1,
     titulo: 'Harry Potter e a Pedra Filosofal',
     genero: 'Fantasia',
     duracaoEmMinutos: 152
   },
   {
+    id: 2,
     titulo: 'Interestelar',
-    genero: 'Ficção Cientifica',
-    duracaoEmMinutos: 269
+    genero: 'Ficção Científica',
+    duracaoEmMinutos: 169
+  },
+  {
+    id: 3,
+    titulo: 'Senhor dos Anéis: A Sociedade do Anel',
+    genero: 'Fantasia',
+    duracaoEmMinutos: 178
+  },
+  {
+    id: 4,
+    titulo: 'Sexta-Feira 13 (1980)',
+    genero: 'Terror',
+    duracaoEmMinutos: 95
   }
 ];
 
@@ -41,6 +55,26 @@ filmes.push({
 
 app.get('/filmes', (req, res) => {
   res.json(filmes);
+});
+
+app.get('/filmes/id/:id', (req, res) => {
+  const idBuscado = Number(req.params.id);
+
+  if (!Number.isInteger(idBuscado) || idBuscado <= 0) {
+    return res.status(400).json({
+      mensagem: 'Informe um ID inteiro positivo.'
+    });
+  }
+
+  const filmeEncontrado = filmes.find(filme => filme.id === idBuscado);
+
+  if (!filmeEncontrado) {
+    return res.status(404).json({
+      mensagem: 'Filme não encontrado.'
+    });
+  }
+
+  res.json(filmeEncontrado);
 });
 
 // Manda o servidor ligar e ficar "ouvindo" a porta 3000
