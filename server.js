@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
   `;
 
   res.send(html);
-});
+
 
   html += `<p>Total de filmes: ${filmes.length}</p>`;
 
