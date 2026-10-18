@@ -36,16 +36,29 @@ const filmes = [
 
 
 app.get('/', (req, res) => {
-  let html = `<h1> Meus Filmes </h1>`;
+  let html = `
+    <h1>Meus Filmes</h1>
+    <ul>
+  `;
 
   for (const filme of filmes) {
     html += `
-      <h2>${filme.titulo}</h2>
-      <p>ID: ${filme.id}</p>
-      <p>Gênero: ${filme.genero}</p>
-      <p>Duração: ${filme.duracaoEmMinutos} minutos</p>
+      <li>
+        <h2>${filme.titulo}</h2>
+        <p>ID: ${filme.id}</p>
+        <p>Gênero: ${filme.genero}</p>
+        <p>Duração: ${filme.duracaoEmMinutos} minutos</p>
+      </li>
     `;
   }
+
+  html += `
+    </ul>
+    <p><strong>Total de filmes: ${filmes.length}</strong></p>
+  `;
+
+  res.send(html);
+});
 
   html += `<p>Total de filmes: ${filmes.length}</p>`;
 
