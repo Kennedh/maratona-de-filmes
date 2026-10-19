@@ -34,6 +34,12 @@ const filmes = [
   }
 ];
 
+function formatarDuracao(totalMinutos) {
+  const horas = Math.floor(totalMinutos / 60);
+  const minutos = totalMinutos % 60;
+
+  return `${horas}h ${minutos}min`;
+} 
 
 app.get('/', (req, res) => {
   let html = `
@@ -47,7 +53,7 @@ app.get('/', (req, res) => {
         <h2>${filme.titulo}</h2>
         <p>ID: ${filme.id}</p>
         <p>Gênero: ${filme.genero}</p>
-        <p>Duração: ${filme.duracaoEmMinutos} minutos</p>
+        <p>Duração: ${formatarDuracao(filme.duracaoEmMinutos)}</p>
       </li>
     `;
   }
