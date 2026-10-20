@@ -41,6 +41,16 @@ function formatarDuracao(totalMinutos) {
   return `${horas}h ${minutos}min`;
 } 
 
+function calcularDuracaoTotal(listaFilmes) {
+  let totalMinutos = 0;
+
+  for (const filme of listaFilmes) {
+    totalMinutos += filme.duracaoEmMinutos;
+  }
+
+  return totalMinutos;
+}
+
 app.get('/', (req, res) => {
   let html = `
     <h1>Meus Filmes</h1>
@@ -58,10 +68,15 @@ app.get('/', (req, res) => {
     `;
   }
 
-  html += `
-    </ul>
-    <p><strong>Total de filmes: ${filmes.length}</strong></p>
-  `;
+  const duracaoTotal = calcularDuracaoTotal(filmes);
+
+html += `
+  </ul>
+  <p><strong>Total de filmes: ${filmes.length}</strong></p>
+  <p><strong>Tempo da maratona: ${formatarDuracao(duracaoTotal)}</strong></p>
+`;
+
+res.send(html);
 
   res.send(html);
 
