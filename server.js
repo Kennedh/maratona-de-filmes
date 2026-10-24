@@ -34,6 +34,22 @@ const filmes = [
   }
 ];
 
+function encontrarFilmeMaisLongo(listaFilmes) {
+  if (listaFilmes.length === 0) {
+    return null;
+  }
+
+  let maisLongo = listaFilmes[0];
+
+  for (const filme of listaFilmes) {
+    if (filme.duracaoEmMinutos > maisLongo.duracaoEmMinutos) {
+      maisLongo = filme;
+    }
+  }
+
+  return maisLongo;
+}
+
 function formatarDuracao(totalMinutos) {
   const horas = Math.floor(totalMinutos / 60);
   const minutos = totalMinutos % 60;
@@ -69,19 +85,22 @@ app.get('/', (req, res) => {
   }
 
   const duracaoTotal = calcularDuracaoTotal(filmes);
+  const filmeLongo = encontrarFilmeMaisLongo(filmes);
 
-html += `
-  </ul>
-  <p><strong>Total de filmes: ${filmes.length}</strong></p>
-  <p><strong>Tempo da maratona: ${formatarDuracao(duracaoTotal)}</strong></p>
-`;
+  html += `
+    </ul>
+    <p><strong>Total de filmes: ${filmes.length}</strong></p>
+    <p><strong>Tempo da maratona: ${formatarDuracao(duracaoTotal)}</strong></p>
+  `;
 
-res.send(html);
-
-  res.send(html);
-
-
-  html += `<p>Total de filmes: ${filmes.length}</p>`;
+  if (filmeLongo) {
+    html += `
+      <p>
+        Filme mais longo: ${filmeLongo.titulo}
+        — ${formatarDuracao(filmeLongo.duracaoEmMinutos)}
+      </p>
+    `;
+  }
 
   res.send(html);
 });
