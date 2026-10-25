@@ -70,8 +70,20 @@ function calcularDuracaoTotal(listaFilmes) {
 app.get('/', (req, res) => {
   let html = `
     <h1>Meus Filmes</h1>
-    <ul>
-  `;
+
+  <form action="/" method="GET">
+    <label for="busca">Buscar filme pelo título:</label>
+    <input
+      type="text"
+      id="busca"
+      name="titulo"
+      placeholder="Ex.: Potter"
+    >
+    <button type="submit">Buscar</button>
+  </form>
+
+  <ul>
+`;
 
   for (const filme of filmes) {
     html += `
