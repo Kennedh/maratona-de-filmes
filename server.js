@@ -68,6 +68,9 @@ function calcularDuracaoTotal(listaFilmes) {
 }
 
 app.get('/', (req, res) => {
+  const tituloBuscado = (req.query.titulo || '').trim().toLowerCase();
+
+  const filmesFiltrados = filmes.filter(filme => filme.titulo.toLowerCase().includes(tituloBuscado));
   let html = `
     <h1>Meus Filmes</h1>
 
