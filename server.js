@@ -88,7 +88,7 @@ app.get('/', (req, res) => {
   <ul>
 `;
 
-  for (const filme of filmes) {
+  for (const filme of filmesFiltrados) {
     html += `
       <li>
         <h2>${filme.titulo}</h2>
@@ -99,12 +99,12 @@ app.get('/', (req, res) => {
     `;
   }
 
-  const duracaoTotal = calcularDuracaoTotal(filmes);
-  const filmeLongo = encontrarFilmeMaisLongo(filmes);
+  const duracaoTotal = calcularDuracaoTotal(filmesFiltrados);
+  const filmeLongo = encontrarFilmeMaisLongo(filmesFiltrados);
 
   html += `
     </ul>
-    <p><strong>Total de filmes: ${filmes.length}</strong></p>
+    <p><strong>Total de filmes: ${filmesFiltrados.length}</strong></p>
     <p><strong>Tempo da maratona: ${formatarDuracao(duracaoTotal)}</strong></p>
   `;
 
