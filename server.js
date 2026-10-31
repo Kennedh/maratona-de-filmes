@@ -117,6 +117,14 @@ app.get('/', (req, res) => {
     `;
   }
 
+  if (filmesFiltrados.length === 0) {
+  html += '<p>Nenhum filme encontrado. Tente outro título.</p>';
+  }
+
+  if (tituloBuscado){
+    html += `<a href="/">Mostrar todos os filmes</a>`
+  }
+
   res.send(html);
 });
 
