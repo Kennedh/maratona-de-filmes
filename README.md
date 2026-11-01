@@ -14,11 +14,19 @@ A ideia é construir a aplicação por etapas, desde a criação do servidor at�
 
 - [x] Configuração inicial do projeto
 - [x] Servidor com Express
-- [x] Primeira rota de teste
-- [ ] Cadastro e listagem de filmes
+- [x] Listagem de filmes na página inicial
+- [x] Busca por título no formulário, ignorando maiúsculas e minúsculas
+- [x] Contagem, duração total e filme mais longo conforme os resultados da busca
+- [x] Mensagem para buscas sem resultados e link para mostrar todos os filmes
+- [x] Rotas JSON para consultar quantidade de filmes e buscar por ID, gênero e título
+- [x] Validação de IDs inválidos e tratamento de filmes não encontrados por ID
+- [ ] Tratamento de parâmetros repetidos na busca por título
+- [ ] Cadastro de filmes
 - [ ] Interface para organizar as maratonas
 - [ ] Persistência em banco de dados
 - [ ] Integração entre front-end e back-end
+
+Por enquanto, os filmes ficam em um array no servidor, sem persistência em arquivo ou banco de dados.
 
 ## ▶️ Como executar
 
@@ -29,7 +37,7 @@ npm install
 node server.js
 ```
 
-Depois, acesse **http://localhost:3000** para conferir a mensagem de funcionamento do servidor.
+Depois, acesse **http://localhost:3000** para ver a lista de filmes e buscar pelo título.
 
 ## 📚 Objetivo
 
