@@ -20,7 +20,7 @@ A ideia é construir a aplicação por etapas, desde a criação do servidor at�
 - [x] Mensagem para buscas sem resultados e link para mostrar todos os filmes
 - [x] Rotas JSON para consultar quantidade de filmes e buscar por ID, gênero e título
 - [x] Validação de IDs inválidos e tratamento de filmes não encontrados por ID
-- [ ] Tratamento de parâmetros repetidos na busca por título
+- [x] Tratamento de parâmetros repetidos na busca por título
 - [ ] Cadastro de filmes
 - [ ] Interface para organizar as maratonas
 - [ ] Persistência em banco de dados
