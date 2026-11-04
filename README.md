@@ -16,11 +16,12 @@ A ideia é construir a aplicação por etapas, desde a criação do servidor at�
 - [x] Servidor com Express
 - [x] Listagem de filmes na página inicial
 - [x] Busca por título no formulário, ignorando maiúsculas e minúsculas
+- [x] Filtros combinados de título e gênero com opções geradas a partir dos filmes
 - [x] Contagem, duração total e filme mais longo conforme os resultados da busca
 - [x] Mensagem para buscas sem resultados e link para mostrar todos os filmes
 - [x] Rotas JSON para consultar quantidade de filmes e buscar por ID, gênero e título
 - [x] Validação de IDs inválidos e tratamento de filmes não encontrados por ID
-- [x] Tratamento de parâmetros repetidos na busca por título
+- [x] Tratamento de parâmetros repetidos na busca por título e gênero
 - [ ] Cadastro de filmes
 - [ ] Interface para organizar as maratonas
 - [ ] Persistência em banco de dados
@@ -37,7 +38,7 @@ npm install
 node server.js
 ```
 
-Depois, acesse **http://localhost:3000** para ver a lista de filmes e buscar pelo título.
+Depois, acesse **http://localhost:3000** para ver a lista de filmes e filtrar por título e gênero.
 
 ## 📚 Objetivo
 

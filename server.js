@@ -72,20 +72,44 @@ app.get('/', (req, res) => {
     return res.status(400).send('Informe apenas um título na busca.');
   }
 
-  const tituloBuscado = (req.query.titulo || '').trim().toLowerCase();
+  if (req.query.genero !== undefined && typeof req.query.genero !== 'string') {
+    return res.status(400).send('Informe apenas um gênero na busca.');
+  }
 
-  const filmesFiltrados = filmes.filter(filme => filme.titulo.toLowerCase().includes(tituloBuscado));
+  const tituloBuscado = (req.query.titulo || '').trim().toLowerCase();
+  const generoBuscado = (req.query.genero || '').trim().toLowerCase();
+
+  const filmesFiltrados = filmes.filter(filme => filme.titulo.toLowerCase().includes(tituloBuscado) && (generoBuscado === '' || filme.genero.toLowerCase() === generoBuscado)
+  );
+
   let html = `
     <h1>Meus Filmes</h1>
 
   <form action="/" method="GET">
-    <label for="busca">Buscar filme pelo título:</label>
-    <input
-      type="text"
-      id="busca"
-      name="titulo"
-      placeholder="Ex.: Potter"
-    >
+    <label for="genero">Gênero:</label>
+    <select name="genero" id="genero">
+    <option value="">Todos</option>
+    `
+    const generos = filmes.map(filme => filme.genero);
+    const generosUnicos = [...new Set(generos)];
+
+    for (const genero of generosUnicos){
+      html += `<option value="${genero}">${genero}</option>`
+    }
+
+    html += `</select>`;
+    const titulos = filmes.map(filme => filme.titulo);
+
+    html += `<label for="titulo">Título:</label>
+           <select name="titulo" id="titulo">
+           <option value="">Todos</option>`
+
+    for (const titulo of titulos){
+      html += `<option value="${titulo}">${titulo}</option>`
+    }
+
+    html += `</select>
+
     <button type="submit">Buscar</button>
   </form>
 
@@ -125,8 +149,8 @@ app.get('/', (req, res) => {
   html += '<p>Nenhum filme encontrado. Tente outro título.</p>';
   }
 
-  if (tituloBuscado){
-    html += `<a href="/">Mostrar todos os filmes</a>`
+  if (tituloBuscado || generoBuscado) {
+  html += `<a href="/">Mostrar todos os filmes</a>`;
   }
 
   res.send(html);
