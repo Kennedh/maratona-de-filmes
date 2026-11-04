@@ -94,7 +94,9 @@ app.get('/', (req, res) => {
     const generosUnicos = [...new Set(generos)];
 
     for (const genero of generosUnicos){
-      html += `<option value="${genero}">${genero}</option>`
+      const selecionado = genero.toLowerCase() === generoBuscado ? 'selected' : '';
+
+      html += `<option value="${genero}" ${selecionado}>${genero}</option>`;
     }
 
     html += `</select>`;
@@ -105,7 +107,9 @@ app.get('/', (req, res) => {
            <option value="">Todos</option>`
 
     for (const titulo of titulos){
-      html += `<option value="${titulo}">${titulo}</option>`
+      const selecionado = titulo.toLowerCase() === tituloBuscado? 'selected' : '';
+
+      html += `<option value="${titulo}" ${selecionado}>${titulo}</option>`;
     }
 
     html += `</select>

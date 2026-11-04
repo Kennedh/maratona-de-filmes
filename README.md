@@ -17,6 +17,7 @@ A ideia é construir a aplicação por etapas, desde a criação do servidor at�
 - [x] Listagem de filmes na página inicial
 - [x] Busca por título no formulário, ignorando maiúsculas e minúsculas
 - [x] Filtros combinados de título e gênero com opções geradas a partir dos filmes
+- [x] Mantém o título e o gênero selecionados após a busca
 - [x] Contagem, duração total e filme mais longo conforme os resultados da busca
 - [x] Mensagem para buscas sem resultados e link para mostrar todos os filmes
 - [x] Rotas JSON para consultar quantidade de filmes e buscar por ID, gênero e título
