@@ -76,11 +76,27 @@ app.get('/', (req, res) => {
     return res.status(400).send('Informe apenas um gênero na busca.');
   }
 
+  if (req.query.ordem !== undefined && typeof req.query.ordem !== 'string') {
+    return res.status(400).send('Informe apenas uma opção de ordenação.');
+  }
+
   const tituloBuscado = (req.query.titulo || '').trim().toLowerCase();
   const generoBuscado = (req.query.genero || '').trim().toLowerCase();
+  const ordemBuscada = (req.query.ordem || '').trim().toLowerCase();
+
+  if (!['', 'menor-duracao', 'maior-duracao'].includes(ordemBuscada)) {
+    return res.status(400).send('Escolha uma opção de ordenação válida.');
+  }
 
   const filmesFiltrados = filmes.filter(filme => filme.titulo.toLowerCase().includes(tituloBuscado) && (generoBuscado === '' || filme.genero.toLowerCase() === generoBuscado)
   );
+
+  // O filter cria outro array; a ordenação muda apenas essa lista de resultados.
+  if (ordemBuscada === 'menor-duracao') {
+    filmesFiltrados.sort((a, b) => a.duracaoEmMinutos - b.duracaoEmMinutos);
+  } else if (ordemBuscada === 'maior-duracao') {
+    filmesFiltrados.sort((a, b) => b.duracaoEmMinutos - a.duracaoEmMinutos);
+  }
 
   let html = `
     <h1>Meus Filmes</h1>
@@ -113,6 +129,13 @@ app.get('/', (req, res) => {
     }
 
     html += `</select>
+
+    <label for="ordem">Ordenar por:</label>
+    <select name="ordem" id="ordem">
+      <option value="" ${ordemBuscada === '' ? 'selected' : ''}>Ordem original</option>
+      <option value="menor-duracao" ${ordemBuscada === 'menor-duracao' ? 'selected' : ''}>Menor duração</option>
+      <option value="maior-duracao" ${ordemBuscada === 'maior-duracao' ? 'selected' : ''}>Maior duração</option>
+    </select>
 
     <button type="submit">Buscar</button>
   </form>
@@ -153,7 +176,7 @@ app.get('/', (req, res) => {
   html += '<p>Nenhum filme encontrado. Tente outro título.</p>';
   }
 
-  if (tituloBuscado || generoBuscado) {
+  if (tituloBuscado || generoBuscado || ordemBuscada) {
   html += `<a href="/">Mostrar todos os filmes</a>`;
   }
 
